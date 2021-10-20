@@ -1,0 +1,27 @@
+var data = decodeToJson(payload);
+var deviceName = data.dev_id;
+var deviceType = data.app_id;
+
+var result = {
+    deviceName: deviceName,
+    deviceType: deviceType,
+    telemetry: {
+         temperature: data.payload_fields.temperature_0,
+         relative_humidity: data.payload_fields.relative_humidity_1,
+         analog_in: data.payload_fields.analog_in_2,
+         rgb_info: data.payload_fields.luminosity_3,
+         distance: data.payload_fields.analog_in_4
+    }
+};
+
+function decodeToString(payload) {
+    return String.fromCharCode.apply(String, payload);
+}
+
+function decodeToJson(payload) {
+    var str = decodeToString(payload);
+    var data = JSON.parse(str);
+    return data;
+}
+
+return result;
